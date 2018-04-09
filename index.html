@@ -183,7 +183,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -193,7 +193,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            Über
+            About
           </a>
         </li>
       
@@ -213,7 +213,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
-            Kategorien
+            Categories
           </a>
         </li>
       
@@ -223,7 +223,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -290,6 +290,163 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/09/Django-Web开发03-创建视频APP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tazbingor">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="塔纳利斯tanaris">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/09/Django-Web开发03-创建视频APP/" itemprop="url">Django-Web开发03-创建视频APP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-09T18:56:06+08:00">
+                2018-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>我们要开发一个视频网站,必须有一个视频功能的应用,原则上可以这么李俊杰,这个视频项目就是我们网站当中子项目,你甚至可以将博客引用嵌入其中,而Django框架则负担起应用平台的作用.</p>
+<h2 id="新建项目中的第一个app"><a href="#新建项目中的第一个app" class="headerlink" title="新建项目中的第一个app"></a>新建项目中的第一个app</h2><p>###新建app</p>
+<p>在终端,CD项目跟目录中输入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py startapp video</span><br></pre></td></tr></table></figure>
+<p>会在根目录中出现<code>video</code>文件夹,其将结构为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">└── video</span><br><span class="line">    ├── admin.py</span><br><span class="line">    ├── apps.py</span><br><span class="line">    ├── __init__.py</span><br><span class="line">    ├── migrations</span><br><span class="line">    │   └── __init__.py</span><br><span class="line">    ├── models.py</span><br><span class="line">    ├── tests.py</span><br><span class="line">    └── views.py</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>video</code>：video app的根目录</p>
+<p><code>admin.py</code>：Django自带了一个管理界面，可以注册model在界面中管理</p>
+<p><code>apps.py</code>: 声明app的信息</p>
+<p><code>__init__</code>.py：表明video也是一个包</p>
+<p><code>migrations</code>：用来初始化数据库，在执行python manage.py makemigrations 的时候会自动生成一个文件在这里</p>
+<p><code>__init__.py</code>：表明migrations也是一个包</p>
+<p><code>models.py</code>：在这个文件里面定义model类</p>
+<p><code>tests.py</code>：写测试代码</p>
+<p><code>views.py</code>：定义app的视图，Django映射urls.py里面的url的时候，在views.py里面查找对应的处理方法</p>
+</blockquote>
+<h3 id="创建数据库表"><a href="#创建数据库表" class="headerlink" title="创建数据库表"></a>创建数据库表</h3><p>设置video app值setting</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">    <span class="string">'video'</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>终端输入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations</span><br><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure>
+<p>数据模型的创建完成</p>
+<h2 id="创建超级管理员"><a href="#创建超级管理员" class="headerlink" title="创建超级管理员"></a>创建超级管理员</h2><p>首先我们要新建一个用户名，用来登陆管理网站，使用如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
+<p>输入想要使用的用户名,方便开发,在这里命名为admin：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Username (leave blank to use &apos;administrator&apos;): admin</span><br></pre></td></tr></table></figure>
+<p>输入email：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email address:     # 可以不用输入</span><br></pre></td></tr></table></figure>
+<p>输入密码，需要输入两次，并且输入密码时不会显示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Password:</span><br><span class="line">Password (again):</span><br></pre></td></tr></table></figure>
+<p>当两次密码都相同的时候，就会提示超级帐号创建成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Superuser created successfully.</span><br></pre></td></tr></table></figure>
+<p>运行服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></table></figure>
+<p>创建之后,登录<a href="http://127.0.0.1:8000/admin/" target="_blank" rel="noopener">http://127.0.0.1:8000/admin/</a></p>
+<p>你可以对你的项目后台肆意妄为啦!!</p>
+<p><a href="https://imgchr.com/i/CiLeVs" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/04/09/CiLeVs.md.jpg" alt="CiLeVs.md.jpg"></a></p>
+<p>未完待续…..</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/09/Django-Web开发02-创建Django工程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -319,7 +476,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-09T17:40:53+08:00">
                 2018-04-09
@@ -471,7 +628,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-08T20:32:16+08:00">
                 2018-04-08
@@ -635,7 +792,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-08T19:22:02+08:00">
                 2018-04-08
@@ -784,7 +941,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-26T10:54:15+08:00">
                 2017-12-26
@@ -912,8 +1069,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -926,7 +1083,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">Tags</span>
+                  <span class="site-state-item-name">tags</span>
                 
               </div>
             
@@ -982,7 +1139,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
