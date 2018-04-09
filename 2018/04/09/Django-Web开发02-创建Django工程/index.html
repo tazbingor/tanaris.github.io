@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="文章," />
+  <meta name="keywords" content="Django," />
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="hello hexo hexo + github page 这样的搭配还是很方便的  原来博客地址:https://www.jianshu.com/u/24378144efa1  之后会逐步将原有的文章进行迭代,并迁移到现在的github博客上">
-<meta name="keywords" content="文章">
+<meta name="description" content="上一回咱们在mac上建立了自己的开发环境,有点麻烦,不如win下一路next的感觉爽.这也是习惯使用终端的过程,总之咱们要的就是开发效率 创建Django项目终端cd一个干净的地方,并输入 1sudo django-admin startproject ezproject #创建项目 完成后,进入Finder查看ezproject文件夹,会出现下列结构: 1234567ezproject:--ez">
+<meta name="keywords" content="Django">
 <meta property="og:type" content="article">
-<meta property="og:title" content="测试,使用hexo+github搭建个人博客">
-<meta property="og:url" content="http://yoursite.com/2017/12/26/测试-使用hexo-github搭建个人博客/index.html">
+<meta property="og:title" content="Django Web开发02:创建Django工程">
+<meta property="og:url" content="http://yoursite.com/2018/04/09/Django-Web开发02-创建Django工程/index.html">
 <meta property="og:site_name" content="塔纳利斯tanaris">
-<meta property="og:description" content="hello hexo hexo + github page 这样的搭配还是很方便的  原来博客地址:https://www.jianshu.com/u/24378144efa1  之后会逐步将原有的文章进行迭代,并迁移到现在的github博客上">
+<meta property="og:description" content="上一回咱们在mac上建立了自己的开发环境,有点麻烦,不如win下一路next的感觉爽.这也是习惯使用终端的过程,总之咱们要的就是开发效率 创建Django项目终端cd一个干净的地方,并输入 1sudo django-admin startproject ezproject #创建项目 完成后,进入Finder查看ezproject文件夹,会出现下列结构: 1234567ezproject:--ez">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-28T15:44:38.000Z">
+<meta property="og:image" content="https://s1.ax1x.com/2018/04/09/CiblF0.md.jpg">
+<meta property="og:updated_time" content="2018-04-09T10:41:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="测试,使用hexo+github搭建个人博客">
-<meta name="twitter:description" content="hello hexo hexo + github page 这样的搭配还是很方便的  原来博客地址:https://www.jianshu.com/u/24378144efa1  之后会逐步将原有的文章进行迭代,并迁移到现在的github博客上">
+<meta name="twitter:title" content="Django Web开发02:创建Django工程">
+<meta name="twitter:description" content="上一回咱们在mac上建立了自己的开发环境,有点麻烦,不如win下一路next的感觉爽.这也是习惯使用终端的过程,总之咱们要的就是开发效率 创建Django项目终端cd一个干净的地方,并输入 1sudo django-admin startproject ezproject #创建项目 完成后,进入Finder查看ezproject文件夹,会出现下列结构: 1234567ezproject:--ez">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/04/09/CiblF0.md.jpg">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/26/测试-使用hexo-github搭建个人博客/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/09/Django-Web开发02-创建Django工程/"/>
 
 
 
 
 
-  <title>测试,使用hexo+github搭建个人博客 | 塔纳利斯tanaris</title>
+  <title>Django Web开发02:创建Django工程 | 塔纳利斯tanaris</title>
   
 
 
@@ -293,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/26/测试-使用hexo-github搭建个人博客/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/09/Django-Web开发02-创建Django工程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="tazbingor">
@@ -310,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">测试,使用hexo+github搭建个人博客</h1>
+          <h1 class="post-title" itemprop="name headline">Django Web开发02:创建Django工程</h1>
         
 
         <div class="post-meta">
@@ -322,8 +324,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-26T10:54:15+08:00">
-                2017-12-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-09T17:40:53+08:00">
+                2018-04-09
               </time>
             
 
@@ -360,11 +362,31 @@
       
 
       
-        <h3 id="hello-hexo"><a href="#hello-hexo" class="headerlink" title="hello hexo"></a>hello hexo</h3><blockquote>
-<p>hexo + github page 这样的搭配还是很方便的</p>
+        <p>上一回咱们在mac上建立了自己的开发环境,有点麻烦,不如win下一路next的感觉爽.这也是习惯使用终端的过程,总之咱们要的就是开发效率</p>
+<h2 id="创建Django项目"><a href="#创建Django项目" class="headerlink" title="创建Django项目"></a>创建Django项目</h2><p>终端cd一个干净的地方,并输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo django-admin startproject ezproject #创建项目</span><br></pre></td></tr></table></figure>
+<p>完成后,进入Finder查看ezproject文件夹,会出现下列结构:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ezproject:</span><br><span class="line">--ezproject:</span><br><span class="line">----__init__.py</span><br><span class="line">----setting.py</span><br><span class="line">----urls.py</span><br><span class="line">----wsgi.py</span><br><span class="line">--manage.py</span><br></pre></td></tr></table></figure>
+<p>在这里,文件夹下的ezproject是项目目录,这是整个工程的基本架构</p>
+<blockquote>
+<p><code>manage.py</code>：用于管理Django站点</p>
+<p><code>settings.py</code>: 包含项目的所有配置参数</p>
+<p><code>urls.py</code>: URL根配置wsgi.py: 内置runserver命令的WSGI应用配置,为项目的路由映射文件</p>
+<p><code>__init__.py</code>: 告诉python，当前目录是python模块</p>
 </blockquote>
-<p>原来博客地址:<a href="https://www.jianshu.com/u/24378144efa1" target="_blank" rel="noopener">https://www.jianshu.com/u/24378144efa1</a> </p>
-<p>之后会逐步将原有的文章进行迭代,并迁移到现在的github博客上</p>
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><h3 id="前端模板"><a href="#前端模板" class="headerlink" title="前端模板"></a>前端模板</h3><p>创建一个名为<code>templates</code>的文件夹,目的是为了存放HTML的前端模板,并同在<code>settings.py</code>中为templates确定模板路径</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">TEMPLATES = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'BACKEND'</span>: <span class="string">'django.template.backends.django.DjangoTemplates'</span>,</span><br><span class="line">        <span class="string">'DIRS'</span>: [</span><br><span class="line">            os.path.join(BASE_DIR, <span class="string">'templates'</span>) <span class="comment"># 需要修改的地方</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="string">'APP_DIRS'</span>: <span class="keyword">True</span>,</span><br><span class="line">        <span class="string">'OPTIONS'</span>: &#123;</span><br><span class="line">            <span class="string">'context_processors'</span>: [</span><br><span class="line">                <span class="string">'django.template.context_processors.debug'</span>,</span><br><span class="line">                <span class="string">'django.template.context_processors.request'</span>,</span><br><span class="line">                <span class="string">'django.contrib.auth.context_processors.auth'</span>,</span><br><span class="line">                <span class="string">'django.contrib.messages.context_processors.messages'</span>,</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h3 id="静态文件设置"><a href="#静态文件设置" class="headerlink" title="静态文件设置"></a>静态文件设置</h3><p>开发中,一些素材等等的静态文件需要储存,方便django查找.与上一步相似的操作,依然在根目录下创建名为<code>static</code>的文件夹,并同时在setting.py中进行关联:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 静态文件</span></span><br><span class="line">STATIC_URL = <span class="string">'/static/'</span></span><br><span class="line">STATICFILES_DIRS = (</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">'static'</span>),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="语言及时区设置"><a href="#语言及时区设置" class="headerlink" title="语言及时区设置"></a>语言及时区设置</h3><p>django默认使用英语,为了方便后续开发,建议修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 语言</span></span><br><span class="line">LANGUAGE_CODE = <span class="string">'zh-hans'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 时区</span></span><br><span class="line">TIME_ZONE = <span class="string">'Asia/Shanghai'</span></span><br></pre></td></tr></table></figure>
+<h2 id="更简单的创建Django项目及开发环境"><a href="#更简单的创建Django项目及开发环境" class="headerlink" title="*更简单的创建Django项目及开发环境"></a>*更简单的创建Django项目及开发环境</h2><p>忍不住还是要把这个方法写在博文里,因为它太方便了.</p>
+<h3 id="使用Pycharm"><a href="#使用Pycharm" class="headerlink" title="使用Pycharm"></a>使用Pycharm</h3><p>用了IDEA的都知道,jetbrains家的IDE太强大了,没有理由不选Pycharm</p>
+<p><strong>下载及安装</strong></p>
+<p>进入官网:<a href="https://www.jetbrains.com/pycharm" target="_blank" rel="noopener">https://www.jetbrains.com/pycharm</a> 下载最新版本的Pycharm,在Mac下安装一路next</p>
+<h3 id="创建django项目"><a href="#创建django项目" class="headerlink" title="创建django项目"></a>创建django项目</h3><p>打开Pycharm,点击django选项</p>
+<p><a href="https://imgchr.com/i/CiblF0" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/04/09/CiblF0.md.jpg" alt="CiblF0.md.jpg"></a></p>
+<p>点击Create,完成! 真是轻松写意</p>
 
       
     </div>
@@ -382,7 +404,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/文章/" rel="tag"># 文章</a>
+            <a href="/tags/Django/" rel="tag"># Django</a>
           
         </div>
       
@@ -395,15 +417,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/04/08/Django-Web开发01-项目规划及开发环境配置/" rel="next" title="Django Web开发01:项目规划及开发环境配置">
+                <i class="fa fa-chevron-left"></i> Django Web开发01:项目规划及开发环境配置
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/08/使用Github-Hexo-建立自己的博客/" rel="prev" title="使用Github + Hexo 建立自己的博客">
-                使用Github + Hexo 建立自己的博客 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -536,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#hello-hexo"><span class="nav-number">1.</span> <span class="nav-text">hello hexo</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建Django项目"><span class="nav-number">1.</span> <span class="nav-text">创建Django项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目结构"><span class="nav-number">2.</span> <span class="nav-text">项目结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前端模板"><span class="nav-number">2.1.</span> <span class="nav-text">前端模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态文件设置"><span class="nav-number">2.2.</span> <span class="nav-text">静态文件设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语言及时区设置"><span class="nav-number">2.3.</span> <span class="nav-text">语言及时区设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更简单的创建Django项目及开发环境"><span class="nav-number">3.</span> <span class="nav-text">*更简单的创建Django项目及开发环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Pycharm"><span class="nav-number">3.1.</span> <span class="nav-text">使用Pycharm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建django项目"><span class="nav-number">3.2.</span> <span class="nav-text">创建django项目</span></a></li></ol></li></ol></div>
             
 
           </div>
