@@ -183,7 +183,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -193,7 +193,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            Über
+            About
           </a>
         </li>
       
@@ -213,7 +213,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
-            Kategorien
+            Categories
           </a>
         </li>
       
@@ -223,7 +223,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -290,6 +290,169 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/11/Django-Web开发04-路由系统与视图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tazbingor">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="塔纳利斯tanaris">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/11/Django-Web开发04-路由系统与视图/" itemprop="url">Django-Web开发04:路由系统与视图</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-11T13:54:29+08:00">
+                2018-04-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>为啥运行manage.py打开本地8000/admin的时候会跳转到Django后台?贤惠回到咱们项目的目录结构:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">project</span><br><span class="line">|----manage.py</span><br><span class="line">|----project</span><br><span class="line">       |----__init__.py</span><br><span class="line">       |----settings.py</span><br><span class="line">       |----urls.py</span><br><span class="line">       |----wsgi.py</span><br></pre></td></tr></table></figure>
+<p>主要是project下的<code>urls.py</code>起了作用.</p>
+<h2 id="Django-路由系统"><a href="#Django-路由系统" class="headerlink" title="Django 路由系统"></a>Django 路由系统</h2><p><code>urls.py</code><strong>是django项目中的url规则定义放在其中</strong>,<strong>作用就是使views里面处理数据的函数与请求的url建立映射关系。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url   </span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^admin/'</span>, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一行: 引用URL,用于正则表达式进浏览器请求的 URL 地址进行匹配，将匹配到的 URL 映射到 Django 项目中的某个模块。</li>
+<li>第二行: 引用Django后台管理模块admin</li>
+<li>第三行: url()的实例列表,url()函数可以传递4个参数，其中2个是必须的：regex和view，以及2个可选的参数：kwargs和name。</li>
+</ul>
+<p>这几行代码基本上就是Django处理Http请求的过程,那么是谁告诉django的URL路由配置?</p>
+<p>回到<code>settings.py</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROOT_URLCONF = <span class="string">'project.urls'</span></span><br></pre></td></tr></table></figure>
+<p>就是这句创建django项目时,自动生成的<code>ROOT_URLCONF</code>.</p>
+<p>从上至下,结合起来看整个/admin的URL处理流程:</p>
+<blockquote>
+<ol>
+<li>从前端浏览器请求/admin</li>
+<li>Django 查看 settings.py 文件中的<code>ROOT_URLCONF</code>配置,并找到<code>project/urls.py</code></li>
+<li>从路由映射文件中匹配 /admin 路径——<code>r&#39;^admin/&#39;</code>如果匹配到路径，则调用相应的视图函数admin.site.urls</li>
+<li>视图函数将一个结果作为 HTTP 响应返回给前端,并展示admin界面</li>
+</ol>
+</blockquote>
+<p>##视图</p>
+<p>view,视图.视图函数,也就是逻辑处理函数,用来接受Web请求并返回wev相应.一般处理业务逻辑.在创建django应用的时候,同时也创建了view.py</p>
+<p>###定义视图函数</p>
+<p>修改video/view.py中的代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render, HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"首页"</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>render</code>模块 用于将一个 Django 模板作为 HTTP 响应返回给浏览器,这里先不用,以后会应常用到.</li>
+<li><code>HttpResponse</code>用来向网页返回内容</li>
+<li><code>index()</code>定义一个index()函数，第一个参数必须是 request，与网页发来的请求有关，request 变量里面包含get或post的内容，用户浏览器，系统等信息在里面。</li>
+</ul>
+<p>###配置视图函数路由</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> video <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^admin/'</span>, admin.site.urls),</span><br><span class="line">    url(<span class="string">r'^$'</span>, views.index, name=<span class="string">'index'</span>)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>和admin一样,加入index的URL映射,运行服务,首页HTML显示”首页”二字即可.</p>
+<h3 id="创建更多视图函数"><a href="#创建更多视图函数" class="headerlink" title="创建更多视图函数"></a>创建更多视图函数</h3><p>依葫芦画瓢,创建登录注册,视频详情等等一系列相关视图函数照着刚才的操作再来一次.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    首页</span></span><br><span class="line"><span class="string">    :param request:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">'首页'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    登录页面</span></span><br><span class="line"><span class="string">    :param request:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">'登录'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    注册页面</span></span><br><span class="line"><span class="string">    :param request:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">'注册'</span>)</span><br><span class="line">    </span><br><span class="line"> <span class="comment"># 等等.......</span></span><br></pre></td></tr></table></figure>
+<p>路由映射:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^admin/'</span>, admin.site.urls),</span><br><span class="line">    url(<span class="string">r'^$'</span>, views.index, name=<span class="string">'index'</span>),</span><br><span class="line">    url(<span class="string">r'^video/(?P&lt;vid&gt;\d+)/$'</span>, views.videoDetail, name=<span class="string">'videoDetail'</span>),</span><br><span class="line">    url(<span class="string">r'^history/$'</span>, views.videoHistory, name=<span class="string">"videoHistory"</span>),</span><br><span class="line">    url(<span class="string">r'^cate/(?P&lt;cateid&gt;\d+)/$'</span>, views.videoCate, name=<span class="string">'videoCate'</span>),</span><br><span class="line">    url(<span class="string">r'^login/$'</span>, views.login, name=<span class="string">"login"</span>),</span><br><span class="line">    url(<span class="string">r'^register/$'</span>, views.register, name=<span class="string">"register"</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h3 id="视图原理图"><a href="#视图原理图" class="headerlink" title="视图原理图"></a>视图原理图</h3><p>总结一下Django 路由及视图的流程:</p>
+<p><a href="https://imgchr.com/i/CkTiJf" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/04/11/CkTiJf.md.png" alt="CkTiJf.md.png"></a></p>
+<p>一目了然..</p>
+<p>未完待续..</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/09/Django-Web开发03-创建视频APP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -319,7 +482,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-09T18:56:06+08:00">
                 2018-04-09
@@ -476,7 +639,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-09T17:40:53+08:00">
                 2018-04-09
@@ -628,7 +791,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-08T20:32:16+08:00">
                 2018-04-08
@@ -792,7 +955,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-08T19:22:02+08:00">
                 2018-04-08
@@ -941,7 +1104,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-26T10:54:15+08:00">
                 2017-12-26
@@ -1069,8 +1232,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -1083,7 +1246,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">Tags</span>
+                  <span class="site-state-item-name">tags</span>
                 
               </div>
             
@@ -1139,7 +1302,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
