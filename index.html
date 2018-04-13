@@ -382,43 +382,28 @@
 <li><code>ManyToManyField()</code>：多对多关系类型字段</li>
 <li><code>OneToOneField()</code>：一对一，将字段定义在任意一端中</li>
 </ul>
+<p>…….</p>
 <p>###字段属性(选项)</p>
 <p>一些模型字段中常用或独有的属性:</p>
 <ul>
-<li><p><code>null</code>:boolean值，是否出现空字段, 缺省则设置为false。通常不将其用于字符型字段上，比如CharField，TextField上。字符型字段如果没有值会返回空字符串。</p>
-</li>
-<li><p><code>blank</code> :boolean值，该字段是否可以为空。如果为假，则必须有值。</p>
-</li>
-<li><p><code>choices</code>: 元组值，一个用来选择值的2维元组。第一个值是实际存储的值，第二个用来方便进行选择。</p>
-</li>
-<li><p><code>db_column</code>: string值，指定当前列在数据库中的名字，不设置，将自动采用model字段名；</p>
-</li>
-<li><p><code>db_index</code> : boolean 值，如果为True将为此字段创建索引；</p>
-</li>
-<li><p><code>default</code>: 给当前字段设定的缺省值，可以是一个具体值，也可以是一个可调用的对象，如果是可调用的对象将每次产生一个新的对象；</p>
-</li>
-<li><p><code>editable</code>: boolean 值，如果为假，admin模式下将不能改写。缺省为真；</p>
-</li>
-<li><p><code>error_messages</code>: 字典，设置默认的出错信息，可覆盖的key 有 null, blank, invalid, invalid_choice, 和 unique。</p>
-</li>
-<li><p><code>help_text</code>: admin模式下帮助文档,form widget 内显示帮助文本。</p>
-</li>
-<li><p><code>primary_key</code>: 设置主键，如果没有设置django创建表时会自动加上</p>
-</li>
-<li><p><code>radio_admin</code>: 用于admin 模式下将select 转换 radio 显示。只用于 ForeignKey 或者设置了</p>
-</li>
-<li><p><code>choicesunique</code>: boolean值，数据是否进行唯一性验证；</p>
-</li>
-<li><p><code>unique_for_date</code>: 字符串类型，值指向一个DateTimeField 或者 一个 DateField的列名称。日期唯一</p>
-</li>
-<li><p><code>unique_for_year</code>:用法同上</p>
-</li>
-<li><p><code>verbose_name</code>:字段描述名,更人性化的描述字段</p>
-</li>
-<li><p><code>validators</code>: 有效性检查。无效则抛出 django.core.validators.ValidationError 异常。</p>
-<p>更多详细信息都在官方文档中:<a href="https://yiyibooks.cn/xx/Django_1.11.6/index.html" target="_blank" rel="noopener">https://yiyibooks.cn/xx/Django_1.11.6/index.html</a></p>
-</li>
+<li><code>null</code>:boolean值，是否出现空字段, 缺省则设置为false。通常不将其用于字符型字段上，比如CharField，TextField上。字符型字段如果没有值会返回空字符串。</li>
+<li><code>blank</code> :boolean值，该字段是否可以为空。如果为假，则必须有值。</li>
+<li><code>choices</code>: 元组值，一个用来选择值的2维元组。第一个值是实际存储的值，第二个用来方便进行选择。</li>
+<li><code>db_column</code>: string值，指定当前列在数据库中的名字，不设置，将自动采用model字段名；</li>
+<li><code>db_index</code> : boolean 值，如果为True将为此字段创建索引；</li>
+<li><code>default</code>: 给当前字段设定的缺省值，可以是一个具体值，也可以是一个可调用的对象，如果是可调用的对象将每次产生一个新的对象；</li>
+<li><code>editable</code>: boolean 值，如果为假，admin模式下将不能改写。缺省为真；</li>
+<li><code>error_messages</code>: 字典，设置默认的出错信息，可覆盖的key 有 null, blank, invalid, invalid_choice, 和 unique。</li>
+<li><code>help_text</code>: admin模式下帮助文档,form widget 内显示帮助文本。</li>
+<li><code>primary_key</code>: 设置主键，如果没有设置django创建表时会自动加上</li>
+<li><code>radio_admin</code>: 用于admin 模式下将select 转换 radio 显示。只用于 ForeignKey 或者设置了</li>
+<li><code>choicesunique</code>: boolean值，数据是否进行唯一性验证；</li>
+<li><code>unique_for_date</code>: 字符串类型，值指向一个DateTimeField 或者 一个 DateField的列名称。日期唯一</li>
+<li><code>unique_for_year</code>:用法同上</li>
+<li><code>verbose_name</code>:字段描述名,更人性化的描述字段</li>
+<li><code>validators</code>: 有效性检查。无效则抛出 django.core.validators.ValidationError 异常。</li>
 </ul>
+<p>更多详细信息都在官方文档中:<a href="https://yiyibooks.cn/xx/Django_1.11.6/index.html" target="_blank" rel="noopener">https://yiyibooks.cn/xx/Django_1.11.6/index.html</a></p>
 <p>###ORM</p>
 <p>Django中有一个强大的功能,即<strong>ORM(Object Relational Mapping)</strong></p>
 <p>Django的ORM就是创建SQL去查询和操作数据库的一种方式,代表<strong>对象关系映射</strong></p>
@@ -451,7 +436,7 @@
 <p>再次输入migrate同步数据迁移</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Operations to perform:</span><br><span class="line">  Apply all migrations: admin, auth, contenttypes, sessions, video</span><br><span class="line">Running migrations:</span><br><span class="line">  Applying video.0001_initial... OK</span><br></pre></td></tr></table></figure>
-<p>迁移成功!</p>
+<p>成功!</p>
 <p>未完待续…..</p>
 
           
