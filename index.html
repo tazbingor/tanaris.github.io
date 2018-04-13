@@ -364,7 +364,7 @@
             <h2 id="Django-模型"><a href="#Django-模型" class="headerlink" title="Django 模型"></a>Django 模型</h2><p>创建app时,Django会为你的app创建一个model,继承于<code>django.db.models.Model</code></p>
 <p>Django中的Models,即抽象化模型层.对于数据操作提供支持.简而言之,不需要写过多的SQL,就能对数据库进行操作.这是Django带来的便利</p>
 <p>(ps:SQL也很重要)</p>
-<h3 id="Django模型字段"><a href="#Django模型字段" class="headerlink" title="Django模型字段"></a>Django模型字段</h3><p>常用模型字段</p>
+<h2 id="Django模型字段"><a href="#Django模型字段" class="headerlink" title="Django模型字段"></a>Django模型字段</h2><p>常用模型字段</p>
 <ul>
 <li><code>CharField()</code>：字符串类型字段</li>
 <li><code>BooleanField()</code>：布尔类型字段</li>
@@ -383,7 +383,7 @@
 <li><code>OneToOneField()</code>：一对一，将字段定义在任意一端中</li>
 </ul>
 <p>…….</p>
-<p>###字段属性(选项)</p>
+<p>##字段属性(选项)</p>
 <p>一些模型字段中常用或独有的属性:</p>
 <ul>
 <li><code>null</code>:boolean值，是否出现空字段, 缺省则设置为false。通常不将其用于字符型字段上，比如CharField，TextField上。字符型字段如果没有值会返回空字符串。</li>
@@ -404,7 +404,7 @@
 <li><code>validators</code>: 有效性检查。无效则抛出 django.core.validators.ValidationError 异常。</li>
 </ul>
 <p>更多详细信息都在官方文档中:<a href="https://yiyibooks.cn/xx/Django_1.11.6/index.html" target="_blank" rel="noopener">https://yiyibooks.cn/xx/Django_1.11.6/index.html</a></p>
-<p>###ORM</p>
+<p>##ORM</p>
 <p>Django中有一个强大的功能,即<strong>ORM(Object Relational Mapping)</strong></p>
 <p>Django的ORM就是创建SQL去查询和操作数据库的一种方式,代表<strong>对象关系映射</strong></p>
 <ul>
@@ -415,8 +415,7 @@
 <p><strong>ORM的作用是将编程语言与数据库进行关联，以简化依赖于数据的应用程序的创建过程</strong></p>
 <p>关系图:</p>
 <p><img src="https://s1.ax1x.com/2018/04/13/CEH3ZQ.png" alt="CEH3ZQ.png"></p>
-<p>##建立模型</p>
-<p>###定义模型</p>
+<p>##定义模型</p>
 <p>按照咱们网站的规划,将其中的功能逐一定义模型,以视频观看历史模型History为例:</p>
 <p>video/models.py:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ....</span></span><br><span class="line"><span class="keyword">from</span> django.contrib.auth.models <span class="keyword">import</span> User</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">History</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    video = models.ForeignKey(Video)</span><br><span class="line">    user = models.ForeignKey(User)</span><br><span class="line">    view_date = models.DateTimeField(verbose_name=<span class="string">'观看时间'</span>, auto_now_add=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(self.user)</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        verbose_name = <span class="string">'观看历史'</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br></pre></td></tr></table></figure>
@@ -431,7 +430,7 @@
 <li>重写<code>__str__()</code>方法,返回查询对象的字符串表达式.之后所有的模型也会重写这个方法</li>
 </ol>
 <p>以上就是定义一个最基础模型的方式.以此类推,将其与的功能的模型定义即可,这里就不废话了</p>
-<h3 id="生成模型"><a href="#生成模型" class="headerlink" title="生成模型"></a>生成模型</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations video</span><br></pre></td></tr></table></figure>
+<h2 id="生成模型"><a href="#生成模型" class="headerlink" title="生成模型"></a>生成模型</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations video</span><br></pre></td></tr></table></figure>
 <p>显示为:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Migrations for 'video':</span><br><span class="line">  video/migrations/0001_initial.py</span><br><span class="line">    - Create model Cate</span><br><span class="line">    - Create model History</span><br><span class="line">    - Create model Label</span><br><span class="line">    - Create model Likes</span><br><span class="line">    - Create model Set</span><br><span class="line">    - Create model Video</span><br><span class="line">    - Add field video to set</span><br><span class="line">    - Add field video to likes</span><br><span class="line">    - Add field video to label</span><br><span class="line">    - Add field video to history</span><br></pre></td></tr></table></figure>
 <p>再次输入migrate同步数据迁移</p>
