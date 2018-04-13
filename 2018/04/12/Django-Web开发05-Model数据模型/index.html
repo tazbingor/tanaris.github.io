@@ -88,7 +88,7 @@
 <meta property="og:description" content="Django 模型创建app时,Django会为你的app创建一个model,继承于django.db.models.Model Django中的Models,即抽象化模型层.对于数据操作提供支持.简而言之,不需要写过多的SQL,就能对数据库进行操作.这是Django带来的便利 (ps:SQL也很重要) Django模型字段常用模型字段  CharField()：字符串类型字段 BooleanFi">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s1.ax1x.com/2018/04/13/CEH3ZQ.png">
-<meta property="og:updated_time" content="2018-04-13T07:46:48.000Z">
+<meta property="og:updated_time" content="2018-04-13T07:56:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django-Web开发05-Model数据模型">
 <meta name="twitter:description" content="Django 模型创建app时,Django会为你的app创建一个model,继承于django.db.models.Model Django中的Models,即抽象化模型层.对于数据操作提供支持.简而言之,不需要写过多的SQL,就能对数据库进行操作.这是Django带来的便利 (ps:SQL也很重要) Django模型字段常用模型字段  CharField()：字符串类型字段 BooleanFi">
@@ -384,8 +384,7 @@
 <li><code>OneToOneField()</code>：一对一，将字段定义在任意一端中</li>
 </ul>
 <p>…….</p>
-<p>##字段属性(选项)</p>
-<p>一些模型字段中常用或独有的属性:</p>
+<h2 id="字段属性-选项"><a href="#字段属性-选项" class="headerlink" title="字段属性(选项)"></a>字段属性(选项)</h2><p>一些模型字段中常用或独有的属性:</p>
 <ul>
 <li><code>null</code>:boolean值，是否出现空字段, 缺省则设置为false。通常不将其用于字符型字段上，比如CharField，TextField上。字符型字段如果没有值会返回空字符串。</li>
 <li><code>blank</code> :boolean值，该字段是否可以为空。如果为假，则必须有值。</li>
@@ -405,8 +404,7 @@
 <li><code>validators</code>: 有效性检查。无效则抛出 django.core.validators.ValidationError 异常。</li>
 </ul>
 <p>更多详细信息都在官方文档中:<a href="https://yiyibooks.cn/xx/Django_1.11.6/index.html" target="_blank" rel="noopener">https://yiyibooks.cn/xx/Django_1.11.6/index.html</a></p>
-<p>##ORM</p>
-<p>Django中有一个强大的功能,即<strong>ORM(Object Relational Mapping)</strong></p>
+<h2 id="ORM"><a href="#ORM" class="headerlink" title="ORM"></a>ORM</h2><p>Django中有一个强大的功能,即<strong>ORM(Object Relational Mapping)</strong></p>
 <p>Django的ORM就是创建SQL去查询和操作数据库的一种方式,代表<strong>对象关系映射</strong></p>
 <ul>
 <li>对象（Object）：这部分表示哪个对象或者在哪种编程语言下使用这个框架，例如Python。</li>
@@ -416,8 +414,7 @@
 <p><strong>ORM的作用是将编程语言与数据库进行关联，以简化依赖于数据的应用程序的创建过程</strong></p>
 <p>关系图:</p>
 <p><img src="https://s1.ax1x.com/2018/04/13/CEH3ZQ.png" alt="CEH3ZQ.png"></p>
-<p>##定义模型</p>
-<p>按照咱们网站的规划,将其中的功能逐一定义模型,以视频观看历史模型History为例:</p>
+<h2 id="定义模型"><a href="#定义模型" class="headerlink" title="定义模型"></a>定义模型</h2><p>按照咱们网站的规划,将其中的功能逐一定义模型,以视频观看历史模型History为例:</p>
 <p>video/models.py:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ....</span></span><br><span class="line"><span class="keyword">from</span> django.contrib.auth.models <span class="keyword">import</span> User</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">History</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    video = models.ForeignKey(Video)</span><br><span class="line">    user = models.ForeignKey(User)</span><br><span class="line">    view_date = models.DateTimeField(verbose_name=<span class="string">'观看时间'</span>, auto_now_add=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(self.user)</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        verbose_name = <span class="string">'观看历史'</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br></pre></td></tr></table></figure>
 <ol>
@@ -610,7 +607,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Django-模型"><span class="nav-number">1.</span> <span class="nav-text">Django 模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django模型字段"><span class="nav-number">2.</span> <span class="nav-text">Django模型字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成模型"><span class="nav-number">3.</span> <span class="nav-text">生成模型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Django-模型"><span class="nav-number">1.</span> <span class="nav-text">Django 模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django模型字段"><span class="nav-number">2.</span> <span class="nav-text">Django模型字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段属性-选项"><span class="nav-number">3.</span> <span class="nav-text">字段属性(选项)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ORM"><span class="nav-number">4.</span> <span class="nav-text">ORM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义模型"><span class="nav-number">5.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成模型"><span class="nav-number">6.</span> <span class="nav-text">生成模型</span></a></li></ol></div>
             
 
           </div>
