@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Django," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Django 模型创建app时,Django会为你的app创建一个model,继承于django.db.models.Model Django中的Models,即抽象化模型层.对于数据操作提供支持.简而言之,不需要写过多的SQL,就能对数据库进行操作.这是Django带来的便利 (ps:SQL也很重要) Django模型字段常用模型字段  CharField()：字符串类型字段 BooleanFi">
+<meta name="keywords" content="Django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django-Web开发05-Model数据模型">
+<meta property="og:url" content="http://yoursite.com/2018/04/12/Django-Web开发05-Model数据模型/index.html">
+<meta property="og:site_name" content="塔纳利斯tanaris">
+<meta property="og:description" content="Django 模型创建app时,Django会为你的app创建一个model,继承于django.db.models.Model Django中的Models,即抽象化模型层.对于数据操作提供支持.简而言之,不需要写过多的SQL,就能对数据库进行操作.这是Django带来的便利 (ps:SQL也很重要) Django模型字段常用模型字段  CharField()：字符串类型字段 BooleanFi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s1.ax1x.com/2018/04/13/CEH3ZQ.png">
+<meta property="og:updated_time" content="2018-04-13T07:27:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django-Web开发05-Model数据模型">
+<meta name="twitter:description" content="Django 模型创建app时,Django会为你的app创建一个model,继承于django.db.models.Model Django中的Models,即抽象化模型层.对于数据操作提供支持.简而言之,不需要写过多的SQL,就能对数据库进行操作.这是Django带来的便利 (ps:SQL也很重要) Django模型字段常用模型字段  CharField()：字符串类型字段 BooleanFi">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/04/13/CEH3ZQ.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/12/Django-Web开发05-Model数据模型/"/>
+
+
+
+
+
+  <title>Django-Web开发05-Model数据模型 | 塔纳利斯tanaris</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">塔纳利斯tanaris</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">tazbingor的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Über
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Kategorien
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/12/Django-Web开发05-Model数据模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tazbingor">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="塔纳利斯tanaris">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Django-Web开发05-Model数据模型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-12T23:32:11+08:00">
+                2018-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Django-模型"><a href="#Django-模型" class="headerlink" title="Django 模型"></a>Django 模型</h2><p>创建app时,Django会为你的app创建一个model,继承于<code>django.db.models.Model</code></p>
+<p>Django中的Models,即抽象化模型层.对于数据操作提供支持.简而言之,不需要写过多的SQL,就能对数据库进行操作.这是Django带来的便利</p>
+<p>(ps:SQL也很重要)</p>
+<h3 id="Django模型字段"><a href="#Django模型字段" class="headerlink" title="Django模型字段"></a>Django模型字段</h3><p>常用模型字段</p>
+<ul>
+<li><code>CharField()</code>：字符串类型字段</li>
+<li><code>BooleanField()</code>：布尔类型字段</li>
+<li><code>IntegerField()</code>：整数型类型字段</li>
+<li><code>FloatField()</code>: 与 python 里的 float 实例相同</li>
+<li><code>NullBooleanField()</code>: 可以包含空值的布尔类型，相当于设置了null=True的BooleanField</li>
+<li><code>DateField()</code>：日期类型字段</li>
+<li><code>DateTimeField()</code>：日期时间类型字段,利用datetime.datetime实例来分表表示时间和日期，类似DateField。</li>
+<li><code>FileField()</code>：上传文件类型字段,该字段不支持primary_key和unique参数，否则类型错误。有一个必须参数upload_to，用于保存文件的本地文件系统</li>
+<li><code>TextField()</code>：文本类型字段</li>
+</ul>
+<p>关系型字段:</p>
+<ul>
+<li><code>ForeignKey()</code>：外键关系类型字段</li>
+<li><code>ManyToManyField()</code>：多对多关系类型字段</li>
+<li><code>OneToOneField()</code>：一对一，将字段定义在任意一端中</li>
+</ul>
+<p>###字段属性(选项)</p>
+<p>一些模型字段中常用或独有的属性:</p>
+<ul>
+<li><p><code>null</code>:boolean值，是否出现空字段, 缺省则设置为false。通常不将其用于字符型字段上，比如CharField，TextField上。字符型字段如果没有值会返回空字符串。</p>
+</li>
+<li><p><code>blank</code> :boolean值，该字段是否可以为空。如果为假，则必须有值。</p>
+</li>
+<li><p><code>choices</code>: 元组值，一个用来选择值的2维元组。第一个值是实际存储的值，第二个用来方便进行选择。</p>
+</li>
+<li><p><code>db_column</code>: string值，指定当前列在数据库中的名字，不设置，将自动采用model字段名；</p>
+</li>
+<li><p><code>db_index</code> : boolean 值，如果为True将为此字段创建索引；</p>
+</li>
+<li><p><code>default</code>: 给当前字段设定的缺省值，可以是一个具体值，也可以是一个可调用的对象，如果是可调用的对象将每次产生一个新的对象；</p>
+</li>
+<li><p><code>editable</code>: boolean 值，如果为假，admin模式下将不能改写。缺省为真；</p>
+</li>
+<li><p><code>error_messages</code>: 字典，设置默认的出错信息，可覆盖的key 有 null, blank, invalid, invalid_choice, 和 unique。</p>
+</li>
+<li><p><code>help_text</code>: admin模式下帮助文档,form widget 内显示帮助文本。</p>
+</li>
+<li><p><code>primary_key</code>: 设置主键，如果没有设置django创建表时会自动加上</p>
+</li>
+<li><p><code>radio_admin</code>: 用于admin 模式下将select 转换 radio 显示。只用于 ForeignKey 或者设置了</p>
+</li>
+<li><p><code>choicesunique</code>: boolean值，数据是否进行唯一性验证；</p>
+</li>
+<li><p><code>unique_for_date</code>: 字符串类型，值指向一个DateTimeField 或者 一个 DateField的列名称。日期唯一</p>
+</li>
+<li><p><code>unique_for_year</code>:用法同上</p>
+</li>
+<li><p><code>verbose_name</code>:字段描述名,更人性化的描述字段</p>
+</li>
+<li><p><code>validators</code>: 有效性检查。无效则抛出 django.core.validators.ValidationError 异常。</p>
+<p>更多详细信息都在官方文档中:<a href="https://yiyibooks.cn/xx/Django_1.11.6/index.html" target="_blank" rel="noopener">https://yiyibooks.cn/xx/Django_1.11.6/index.html</a></p>
+</li>
+</ul>
+<p>###ORM</p>
+<p>Django中有一个强大的功能,即<strong>ORM(Object Relational Mapping)</strong></p>
+<p>Django的ORM就是创建SQL去查询和操作数据库的一种方式,代表<strong>对象关系映射</strong></p>
+<ul>
+<li>对象（Object）：这部分表示哪个对象或者在哪种编程语言下使用这个框架，例如Python。</li>
+<li>关系（Relational）：这部分表示你正在使用的RDBMS数据库（关系数据库管理器系统）。有许多流行的关系数据库，你可能使用以下这些：MSSQL、MySQL、Oracle、PostgreSQL、MariaDB、PerconaDB、TokuDB。关系数据库中最常见的是它们的关系结构（表，列，键，约束等）。</li>
+<li>映射（Mapping）：最后一部分表示前面两个部分之间的桥接和连接，即对象和数据库表。</li>
+</ul>
+<p><strong>ORM的作用是将编程语言与数据库进行关联，以简化依赖于数据的应用程序的创建过程</strong></p>
+<p>关系图:</p>
+<p><img src="https://s1.ax1x.com/2018/04/13/CEH3ZQ.png" alt="CEH3ZQ.png"></p>
+<p>###定义模型</p>
+<p>按照咱们网站的规划,将其中的功能逐一定义模型,以视频观看历史模型History为例:</p>
+<p>video/models.py:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ....</span></span><br><span class="line"><span class="keyword">from</span> django.contrib.auth.models <span class="keyword">import</span> User</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">History</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    video = models.ForeignKey(Video)</span><br><span class="line">    user = models.ForeignKey(User)</span><br><span class="line">    view_date = models.DateTimeField(verbose_name=<span class="string">'观看时间'</span>, auto_now_add=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(self.user)</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        verbose_name = <span class="string">'观看历史'</span></span><br><span class="line">        verbose_name_plural = verbose_name</span><br></pre></td></tr></table></figure>
+<ol>
+<li>因为要对用户操作,所以要引用一个Django的用户认证模型User</li>
+<li>首先创建的两个外键字段video,user,由于连接到Video模型和User模型.view_date是时间字段,用于记录用户观看视频的时间</li>
+<li>内部类Meta,用于定义一些Django模型的行为特性,在这里主要设置了verbose_name及verbose_name_plural<ul>
+<li><code>verbose_name</code>:为该模型命名,一般定义一个中文名</li>
+<li><code>verbose_name_plural</code>:模型的复数形式.</li>
+</ul>
+</li>
+<li>重写<code>__str__()</code>方法,返回查询对象的字符串表达式.之后所有的模型也会重写这个方法</li>
+</ol>
+<p>以上就是定义一个最基础模型的方式.以此类推,将其与的功能的模型定义即可,这里就不废话了</p>
+<h3 id="生成模型"><a href="#生成模型" class="headerlink" title="生成模型"></a>生成模型</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations video</span><br></pre></td></tr></table></figure>
+<p>显示为:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Migrations for 'video':</span><br><span class="line">  video/migrations/0001_initial.py</span><br><span class="line">    - Create model Cate</span><br><span class="line">    - Create model History</span><br><span class="line">    - Create model Label</span><br><span class="line">    - Create model Likes</span><br><span class="line">    - Create model Set</span><br><span class="line">    - Create model Video</span><br><span class="line">    - Add field video to set</span><br><span class="line">    - Add field video to likes</span><br><span class="line">    - Add field video to label</span><br><span class="line">    - Add field video to history</span><br></pre></td></tr></table></figure>
+<p>再次输入migrate同步数据迁移</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Operations to perform:</span><br><span class="line">  Apply all migrations: admin, auth, contenttypes, sessions, video</span><br><span class="line">Running migrations:</span><br><span class="line">  Applying video.0001_initial... OK</span><br></pre></td></tr></table></figure>
+<p>迁移成功!</p>
+<p>未完待续…..</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Django/" rel="tag"># Django</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/11/Django-Web开发04-路由系统与视图/" rel="next" title="Django-Web开发04:路由系统与视图">
+                <i class="fa fa-chevron-left"></i> Django-Web开发04:路由系统与视图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tazbingor</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/tazbingor" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Django-模型"><span class="nav-number">1.</span> <span class="nav-text">Django 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Django模型字段"><span class="nav-number">1.1.</span> <span class="nav-text">Django模型字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成模型"><span class="nav-number">1.2.</span> <span class="nav-text">生成模型</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tazbingor</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
