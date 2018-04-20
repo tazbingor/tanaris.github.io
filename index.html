@@ -290,6 +290,139 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/Django-Web开发06-安装ffmpeg以及Homebrew/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tazbingor">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="塔纳利斯tanaris">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/19/Django-Web开发06-安装ffmpeg以及Homebrew/" itemprop="url">Django-Web开发06-安装ffmpeg以及Homebrew</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-19T19:12:10+08:00">
+                2018-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这篇本来为了描述当前项目的数据库加入数据的操作,但是恼人的ffmpeg库下载安装失败,导致视频等数据都无法导入数据库的脚本无法运行,所以本篇就ffmpeg库的使用进行展开.</p>
+<h2 id="安装HomeBrew"><a href="#安装HomeBrew" class="headerlink" title="安装HomeBrew"></a>安装HomeBrew</h2><p>‘’在mac下编程,brew还是需要了解的’’这句话在别人卖我mac的时候,就给我再三叮嘱过得,只怪我太年轻,不听老人言哦.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span><br></pre></td></tr></table></figure>
+<p>终端输入<code>brew</code>,检测安装是否成功,显示如下文字即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Example usage:</span><br><span class="line">  brew search [TEXT|/REGEX/]</span><br><span class="line">  brew info [FORMULA...]</span><br><span class="line">  brew install FORMULA...</span><br><span class="line">  brew update</span><br><span class="line">  brew upgrade [FORMULA...]</span><br><span class="line">  brew uninstall FORMULA...</span><br><span class="line">  brew list [FORMULA...]</span><br><span class="line"></span><br><span class="line">Troubleshooting:</span><br><span class="line">  brew config</span><br><span class="line">  brew doctor</span><br><span class="line">  brew install --verbose --debug FORMULA</span><br><span class="line"></span><br><span class="line">Contributing:</span><br><span class="line">  brew create [URL [--no-fetch]]</span><br><span class="line">  brew edit [FORMULA...]</span><br><span class="line"></span><br><span class="line">Further help:</span><br><span class="line">  brew commands</span><br><span class="line">  brew help [COMMAND]</span><br><span class="line">  man brew</span><br><span class="line">  https://docs.brew.sh</span><br></pre></td></tr></table></figure>
+<h2 id="HomeBrew能做啥"><a href="#HomeBrew能做啥" class="headerlink" title="HomeBrew能做啥?"></a>HomeBrew能做啥?</h2><p>使用 Homebrew 安装 Apple 没有预装但你需要的东西,可以为所欲为</p>
+<p>参考官网<a href="https://brew.sh/index_zh-cn.html" target="_blank" rel="noopener">https://brew.sh/index_zh-cn.html</a></p>
+<h2 id="HomeBrew常用操作"><a href="#HomeBrew常用操作" class="headerlink" title="HomeBrew常用操作"></a>HomeBrew常用操作</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew search  # 搜索</span><br><span class="line">brew install # 安装</span><br><span class="line">brew remove # 卸载</span><br></pre></td></tr></table></figure>
+<h2 id="安装ffmpeg"><a href="#安装ffmpeg" class="headerlink" title="安装ffmpeg"></a>安装ffmpeg</h2><p>ffmpeg能包括视频采集功能、视频格式转换、视频抓图、给视频加水印等.在咱们的是网站项目中也需要用到它</p>
+<p>利用brew安装ffmpeg</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install ffmpeg</span><br></pre></td></tr></table></figure>
+<p>安装后查看brew信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew info ffmpeg</span><br></pre></td></tr></table></figure>
+<p>未完待续…</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/12/Django-Web开发05-Model数据模型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1421,7 +1554,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
