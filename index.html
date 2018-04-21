@@ -79,7 +79,7 @@
 
 
 
-<meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs">
+<meta name="keywords" content="Hexo, Python, Django">
 <meta property="og:type" content="website">
 <meta property="og:title" content="塔纳利斯tanaris">
 <meta property="og:url" content="http://yoursite.com/index.html">
@@ -276,6 +276,153 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/Django-Web开发07-添加视频数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tazbingor">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="塔纳利斯tanaris">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/20/Django-Web开发07-添加视频数据/" itemprop="url">Django-Web开发07-添加视频数据</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-20T19:51:58+08:00">
+                2018-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Django数据模型"><a href="#Django数据模型" class="headerlink" title="Django数据模型"></a>Django数据模型</h2><p>使用manage.py shell进行简单的数据模型操作</p>
+<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><p>视频网站的项目中有四大类的视频种类,所以我们在视频分类Cate添加其中一条,比如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> video.models <span class="keyword">import</span> Cate</span><br><span class="line">cate = Cate(name=<span class="string">'Vine'</span>)</span><br><span class="line">cate.save()</span><br></pre></td></tr></table></figure>
+<p>直接使用<code>Cate()</code>实例化了一个名为’Vine’的实例.</p>
+<p>还有更简单的方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> video.models <span class="keyword">import</span> Cate</span><br><span class="line">cate = Cate.objects.create(name=<span class="string">'Vine'</span>)</span><br></pre></td></tr></table></figure>
+<p>在这里我们使用这个方法依次创建四个视频分类的实例</p>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>django中常用的数据库查询方式</p>
+<p><strong>查询单个对象</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span>&gt;&gt; from video.models import Cate</span><br><span class="line"><span class="meta">&gt;</span>&gt;&gt; Cate.objects.get(id=1)</span><br><span class="line">&lt;Cate: Vine&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>查询全部对象</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span>&gt;&gt; Cate.objects.all()</span><br><span class="line">&lt;QuerySet [&lt;Cate: Vine&gt;, &lt;Cate: 抖音&gt;, &lt;Cate: 快手&gt;, &lt;Cate: Reaction&gt;]&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>精确查找,使用字段进行查询</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;QuerySet [&lt;Cate: Vine&gt;, &lt;Cate: 抖音&gt;, &lt;Cate: 快手&gt;, &lt;Cate: Reaction&gt;]&gt;</span><br><span class="line"><span class="meta">&gt;</span>&gt;&gt; Cate.objects.filter(name__icontains='e') #包含的字段进行查找</span><br><span class="line">&lt;QuerySet [&lt;Cate: Vine&gt;, &lt;Cate: Reaction&gt;]&gt;</span><br></pre></td></tr></table></figure>
+<p>更多,更详细的查询方式</p>
+<p><a href="https://yiyibooks.cn/xx/Django_1.11.6/topics/db/queries.html" target="_blank" rel="noopener">https://yiyibooks.cn/xx/Django_1.11.6/topics/db/queries.html</a></p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cate.objects.filter(name='Vine').delete()</span><br></pre></td></tr></table></figure>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cate.objects.filter(name='Vine').update('微博')</span><br></pre></td></tr></table></figure>
+<p>熟悉了Django的对数据库的基本操作之后,接下来就该向数据库中添加视频数据了</p>
+<h2 id="添加数据"><a href="#添加数据" class="headerlink" title="添加数据"></a>添加数据</h2><h3 id="导入的脚本"><a href="#导入的脚本" class="headerlink" title="导入的脚本"></a>导入的脚本</h3><p>在当前项目app文件夹下,新建一个脚本,批量将视频文件添加进数据库中,以下是脚本的核心代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># file_dir = 'video/Reaction合集'</span></span><br><span class="line"><span class="comment"># file_dir = 'video/Vine合集'</span></span><br><span class="line"><span class="comment"># file_dir = 'video/快手合集'</span></span><br><span class="line">file_dir = <span class="string">'video/抖音合集'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">root_dir = os.path.join(BASE_DIR, file_dir)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> os.listdir(root_dir):</span><br><span class="line">    print(file_dir, i)</span><br><span class="line">    <span class="comment"># 获取视频信息</span></span><br><span class="line">    video_duration = get_duration(os.path.join(root_dir, i))</span><br><span class="line">    <span class="comment"># 获取缩略图</span></span><br><span class="line">    img_name = get_video_img(os.path.join(root_dir, i))</span><br><span class="line">    <span class="comment"># 插入视频数据</span></span><br><span class="line">    v = Video.objects.get_or_create(</span><br><span class="line">        name=i.split(<span class="string">'.'</span>)[<span class="number">0</span>],</span><br><span class="line">        link=os.path.join(file_dir, i),</span><br><span class="line">        img=os.path.join(file_dir, str(i.split(<span class="string">'.'</span>)[<span class="number">0</span>]) + <span class="string">'.jpg'</span>),</span><br><span class="line">        introduce=<span class="string">"抖音合集"</span>,</span><br><span class="line">        cate=Cate.objects.get(name=<span class="string">'抖音'</span>),</span><br><span class="line">        hour=video_duration[<span class="number">1</span>]</span><br><span class="line">    )</span><br><span class="line">    print(<span class="string">'--------&gt;插入视频成功'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># print('video_duration[1]', video_duration[1])</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 插入专辑数据</span></span><br><span class="line">    vv = Video.objects.get(</span><br><span class="line">        name=i.split(<span class="string">'.'</span>)[<span class="number">0</span>],</span><br><span class="line">        link=os.path.join(file_dir, i),</span><br><span class="line">        img=os.path.join(file_dir, str(i.split(<span class="string">'.'</span>)[<span class="number">0</span>]) + <span class="string">".jpg"</span>),</span><br><span class="line">        introduce=<span class="string">"抖音合集"</span>,</span><br><span class="line">        cate=Cate.objects.get(name=<span class="string">'抖音'</span>),</span><br><span class="line">        hour=video_duration[<span class="number">1</span>]</span><br><span class="line">    )</span><br><span class="line">    sets = Set.objects.create(</span><br><span class="line">        name=<span class="string">'抖音'</span>,</span><br><span class="line">        video=vv</span><br><span class="line">    )</span><br><span class="line">    print(<span class="string">'--------&gt; 插入专辑成功'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="使用ffmpeg命令将视频转码"><a href="#使用ffmpeg命令将视频转码" class="headerlink" title="使用ffmpeg命令将视频转码"></a>使用ffmpeg命令将视频转码</h3><p>在上一篇 <a href="https://tazbingor.github.io/2018/04/19/Django-Web%E5%BC%80%E5%8F%9106-%E5%AE%89%E8%A3%85ffmpeg%E4%BB%A5%E5%8F%8AHomebrew/" target="_blank" rel="noopener">Django-Web开发06-安装ffmpeg以及Homebrew</a></p>
+<p>中有提及,ffmpeg是目前最为方便的视频转码方案.在当前项目中,我们不需要在使用终端进行转码,可以直接写在代码中</p>
+<p>即:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i "视频文件名.mp4"</span><br></pre></td></tr></table></figure>
+<p>使用ffmpeg,获取视频时长<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_duration</span><span class="params">(filename)</span>:</span></span><br><span class="line">    s = subprocess.Popen(<span class="string">'ffmpeg -i "&#123;0&#125;"'</span>.format(filename),shell=<span class="keyword">True</span>,stdout = subprocess.PIPE, stderr = subprocess.STDOUT)</span><br><span class="line">    ss = s.stdout.read()</span><br><span class="line">    duration = re.findall(<span class="string">r'Duration:(.*?),'</span>,str(ss))[<span class="number">0</span>]</span><br><span class="line">    print(filename,duration)</span><br><span class="line">    <span class="keyword">return</span> (filename,duration)</span><br></pre></td></tr></table></figure></p>
+<p>以上的操作只需单独运行脚本即可导入数据库</p>
+<p>未完待续….</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1554,7 +1701,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
